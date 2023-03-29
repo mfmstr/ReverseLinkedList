@@ -1,0 +1,67 @@
+public class LinkedList {
+ 
+		static Node head;
+	 
+		 private static class Node{
+		  private int val;
+		  private Node next;
+		  
+		  public Node(int val) {
+			  this.val = val;
+			  this.next = null;
+		  }
+	 }
+ 
+	    public static void printNode() {
+	        Node current = head;
+	        while (current != null) {
+	            System.out.print(current.val + "->");
+	            current = current.next;
+	        }
+	        System.out.println("null");
+	    }
+	    
+	    
+	    // LinkedList-ის შემოსაბრუნებლად 1 -> 2 -> 3 შემთხვევაში მიმთითებლები უნდა შემოვაბრუნოთ 1 <- 2 <- 3
+	    // პირველი წევრი იქნება head და მომდევნო 2-ს ავღნიშნავთ prev და next ცვლადებით. 
+	    // ზემოთ მოცემულ შემთხვევაში head გახდება 2, prev 3 და next null; ამიტომ ახალ head-ს(2) ექნება მიმთითებელი წინა ჰედზე, და ამ მეთოდით გადავატარებთ ყველა წევრზე while ლუპში.
+	    public static Node reverseList(Node head) {
+	     Node prev = head.next;
+	     Node next = head.next.next;
+	     head.next = null;
+	     
+	     
+	     
+	     while(prev !=null) {
+	      prev.next=head;
+	      head = prev;
+	      prev = next;
+	      if(next !=null)
+	       next = next.next;
+	     }
+	     return head;
+	    }
+    
+    
+    
+	    public static void main(String[] args) {
+	        LinkedList l = new LinkedList();
+	        
+	        LinkedList.head = new Node(2);
+	        Node node2 = new Node(10);
+	        Node node3 = new Node(44);
+	        Node node4 = new Node(50);
+	
+	        LinkedList.head.next = node2;
+	        node2.next = node3;
+	        node3.next = node4;
+	        
+	        // შეცვლამდე
+	        LinkedList.printNode();
+	        
+	        // LinkedList-ის ჰედს ვანიჭებთ ჰედს შემობრუნებულ შემთხვევაში, შესაბასიმად დაბეჭდავს შემობრუნებულ ვერსიას.
+	        LinkedList.head = LinkedList.reverseList(LinkedList.head);
+	        LinkedList.printNode();
+	    }
+ 
+}
